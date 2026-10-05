@@ -1,0 +1,44 @@
+{
+  "name": "design-first",
+  "displayName": "Design First",
+  "version": "1.0.0",
+  "description": "Design before code: six different first screens built around measured stock photos, type and texture. You pick one, it becomes a live page for desktop and phone, checked for readability before you see it.",
+  "author": {
+    "name": "Dima Schneider",
+    "url": "https://github.com/GuruDevvv"
+  },
+  "homepage": "https://github.com/GuruDevvv/design-first",
+  "repository": "https://github.com/GuruDevvv/design-first",
+  "license": "MIT",
+  "keywords": [
+    "design",
+    "ui",
+    "landing-page",
+    "prototype",
+    "stock-photos",
+    "frontend"
+  ],
+  "icon": "./.claude-plugin/icon.png",
+  "documentationUrl": "https://github.com/GuruDevvv/design-first#readme",
+  "supportUrl": "https://github.com/GuruDevvv/design-first/issues",
+  "privacyPolicyUrl": "https://github.com/GuruDevvv/design-first/blob/main/PRIVACY.md",
+  "mcpServers": {
+    "design-first-stock": {
+      "command": "node",
+      "args": [
+        "${CLAUDE_PLUGIN_ROOT}/server/stock-server.mjs"
+      ],
+      "env": {
+        "PIXABAY_API_KEY": "${user_config.pixabay_api_key}"
+      }
+    }
+  },
+  "userConfig": {
+    "pixabay_api_key": {
+      "type": "string",
+      "title": "Pixabay API key",
+      "description": "Free key for photo search. Open pixabay.com/api/docs, sign up, and copy the key shown in the \"key\" row of the Parameters table. Leave empty to work without stock photos.",
+      "sensitive": true
+    }
+  }
+}
