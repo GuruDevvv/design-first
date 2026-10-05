@@ -21,7 +21,7 @@
   "icon": "./.claude-plugin/icon.png",
   "documentationUrl": "https://github.com/GuruDevvv/design-first#readme",
   "supportUrl": "https://github.com/GuruDevvv/design-first/issues",
-  "privacyPolicyUrl": "https://github.com/GuruDevvv/design-first/blob/main/PRIVACY.md",
+  "privacyPolicyUrl": "https://github.com/GuruDevvv/design-first/blob/master/PRIVACY.md",
   "mcpServers": {
     "design-first-stock": {
       "command": "node",
