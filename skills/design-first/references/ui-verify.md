@@ -44,7 +44,7 @@ Zero dependencies (Node 22+, installed Chrome/Edge). Emulates the exact viewport
 | `NOTE … on photos/video` | contrast not computable over images | check those by eye; add a scrim if in doubt |
 
 Exit code 1 if anything FAILs. **Fix every FAIL before showing the page**, rerun until clean, and give
-the user the numbers in one line («страница × 3 ширины, всё чисто; 2 слабых подписи поправил»).
+the user the numbers in one line ("the page at 3 widths, all clean; fixed 2 weak captions").
 
 ## Manual probes (for complaints and anything the script doesn't cover)
 

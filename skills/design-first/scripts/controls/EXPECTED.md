@@ -1,14 +1,14 @@
-# Контрольные страницы check.mjs
+# Control pages for check.mjs
 
-Прогон: `node ../check.mjs . --widths 390` из этой папки. Ожидаемо:
+Run: `node ../check.mjs . --widths 390` from this folder. Expected:
 
-| Файл | Должно быть |
+| File | Must be |
 |---|---|
-| bad-group-opacity.html | FAIL unreadable (≈2,85 — плашка и текст выцветают вместе) |
-| good-alpha-panel.html | чисто (≈ 8,8; наивный подсчёт даёт ложные 1,26) |
+| bad-group-opacity.html | FAIL unreadable (about 2.85 — the panel and the text fade together) |
+| good-alpha-panel.html | clean (about 8.8; a naive calculation gives a false 1.26) |
 | bad-low-contrast.html | FAIL unreadable |
 | bad-overflow.html | FAIL horizontal scroll |
 | bad-stuck-reveal.html | FAIL invisible after full scroll |
-| good-clean.html | чисто |
+| good-clean.html | clean |
 
-Правишь check.mjs — прогони этот набор: все bad-* обязаны упасть, все good-* пройти.
+When you change check.mjs, run this set: every bad-* must fail, every good-* must pass.

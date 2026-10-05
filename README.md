@@ -27,7 +27,7 @@ measured run). The phone step is newer and less tested than the desktop one.
 ## Example prompts
 
 - `Design a landing page for a private city guide in Kaliningrad, people should book a walk.`
-- `Сделай дизайн лендинга детской школы плавания, нужна запись на пробное занятие.`
+- `Design a landing page for a kids' swimming school — parents should sign up for a free trial lesson.`
 - `Redesign the dashboard in this project — show me six directions before touching the code.`
 
 ## Requirements

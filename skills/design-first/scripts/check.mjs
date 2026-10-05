@@ -195,7 +195,7 @@ const MEASURE = String.raw`(async () => {
       bg: 'rgb(' + worstBg.slice(0, 3).map(Math.round).join(',') + ')', fontSize: fs, opacity: +op.toFixed(2) });
   }
   // looping animations (typing demos, carousels) hide text only part of the time: resample over ~6s
-  // back at the top first: scroll hints ("крутите вниз") hide on scroll and come back there
+  // back at the top first: scroll hints ("scroll down") hide on scroll and come back there
   window.scrollTo(0, 0);
   let still = invisible;
   for (let k = 0; k < 4 && still.length; k++) {

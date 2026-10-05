@@ -19,7 +19,7 @@ Read it before writing the six first screens (SKILL.md Step 5) and apply it to e
 - **Effects:** the same shadow on every element; glassmorphism everywhere (reads as "built from a Lovable preset"); blurred purple "orbs".
 - **Icons:** emoji bullets; stock icon sets sprinkled on everything. (A consistent own inline-SVG line set, ≥32px in cards, stroke ≥1.75, is wanted.)
 
-> Real example caught in testing: a production app's own CSS had the comment `/* Градиентный текст — главный маркер AI-дизайна */` above a purple gradient — they knew it was the slop marker and shipped it anyway. Don't.
+> Real example caught in testing: a production app's own CSS had the comment `/* Gradient text is the main tell of AI design */` above a purple gradient — they knew it was the slop marker and shipped it anyway. Don't.
 
 ## Negative rules — bake explicit "do NOT" into each prototype's prompt
 
@@ -33,7 +33,7 @@ Plus the project's own anti-references from the brief.
 1. **Distinctive type at weight + size extremes** — single biggest differentiator, zero perf cost.
 2. **Grain/noise overlay** — SVG `feTurbulence` at ~0.05-0.12 opacity. Kills sterile flatness. (snippet in `motion.md`/below)
 3. **Staggered page-load reveal** — `animation-delay` 0/120/240/360ms. "Designed", not "rendered".
-4. **One committed accent on a base chosen from the mood** — light or dark, but never timid purple-on-white. Across the six screens, don't let dark bases dominate: a set of mostly dark pages reads as «мрачно, монотонно».
+4. **One committed accent on a base chosen from the mood** — light or dark, but never timid purple-on-white. Across the six screens, don't let dark bases dominate: a set of mostly dark pages reads as "gloomy, monotonous".
 5. **A background that carries the mood** — layered gradients / real image / pattern when the mood wants depth; clean and light when it wants clarity.
 6. **Asymmetric or editorial layout** — non-centered, oversized type, content that breaks the grid.
 

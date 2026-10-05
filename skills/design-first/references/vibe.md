@@ -9,7 +9,7 @@ instantly when they see it. The skill's job is to read that picture from the top
 Earlier versions invented a bold metaphor from far outside the niche for every prototype. On real
 projects that made pages feel alien to their audience (a webinar landing went through nine
 rejected prototypes before the genre's own look landed at once), decorative metaphors on a work
-tool were called «непрактичное творчество», and clean pages without topic behaviour were «скучно».
+tool were called "impractical art", and clean pages without topic behaviour were "boring".
 So: stand on the genre, add concepts grown from the topic's own objects (concepts.md), and give
 the page behaviour from the topic.
 
@@ -20,7 +20,7 @@ Who, age range, situation, where they arrive from, device. **If the buyer isn't 
 product is for** (parents buy a kids' camp, HR buys a training), name both: the tone of the page
 follows who it's *about* — a kids' robotics camp is bright and light even though parents pay;
 the buyer's needs (safety, schedule, price, trust) go into the content. Blind test 25.09: the
-"trust for parents" reading turned a kids' school dark — «темноват для детской школы». Not "women 30–45" but
+"trust for parents" reading turned a kids' school dark — "too dark for a kids' school". Not "women 30–45" but
 "a woman 35–45, married, reading an Instagram ad in bed at 1 a.m. on her phone, embarrassed
 to ask anyone about this". The moment and the place drive the look more than demographics.
 
@@ -71,13 +71,13 @@ For each hypothesis translate the feeling into properties you can actually build
 
 | They say | What is usually wrong |
 |---|---|
-| «мрачно», «монотонно», «скучно» | every section the same luminance; no light source; no rhythm between sections |
-| «мало секса», «холодно» | no human warmth — no body, skin, glow; too graphic or too clean |
-| «всё сливается» | low contrast, blocks of equal weight, no clear focal point — **measure it** (ui-verify.md) |
-| «все одинаковые» | the same layout skeleton, even if colours/metaphors differ |
-| «перегружено текстом», «монолитно» | text walls; no icons; no interaction; cards with more than one line of substance |
-| «дёшево» | default fonts, stock-looking photo, uneven spacing, too many accents |
-| «не то», «плачу» | you left the genre — go back to the codes from read 2 |
+| "gloomy", "monotonous", "boring" | every section the same luminance; no light source; no rhythm between sections |
+| "not sexy enough", "cold" | no human warmth — no body, skin, glow; too graphic or too clean |
+| "it all blends together" | low contrast, blocks of equal weight, no clear focal point — **measure it** (ui-verify.md) |
+| "they all look the same" | the same layout skeleton, even if colours/metaphors differ |
+| "too much text", "one solid block" | text walls; no icons; no interaction; cards with more than one line of substance |
+| "cheap" | default fonts, stock-looking photo, uneven spacing, too many accents |
+| "not it", "this makes me cry" | you left the genre — go back to the codes from read 2 |
 
 ### 4. Topic props → interactive pieces
 List the objects and actions of the topic. For a landing plan **3–4 interactive pieces made from
@@ -97,17 +97,17 @@ Icons: your own inline-SVG line set, ≥32px in cards, stroke ≥1.75. Emoji sta
 ### 5. Whose palette is it?
 Before borrowing an organisation's palette, check it isn't already bound to **another author or
 product** in the same project. A warm cream-terracotta palette once designed for one speaker made
-a second speaker's product read as the first one's — "никуда не годится". Each author/product gets
+a second speaker's product read as the first one's — "completely unacceptable". Each author/product gets
 its own colour character.
 
 ### 6. The vibe card — a few plain lines in the brief
 ```
-Кто смотрит: <read 1>
-Жанр и его коды (видел / предполагаю): <read 2, in 1–2 lines>
-Настроения-гипотезы: 1) <mood> → <properties>  2) …  3) …
-Фишки из темы: <read 4>
-Чья палитра: <read 5 — free, or whose it already is>
-Концепт из предметов темы: <concepts.md — for screen 6>
+Who is looking: <read 1>
+Genre and its codes (seen / assumed): <read 2, in 1–2 lines>
+Mood hypotheses: 1) <mood> → <properties>  2) …  3) …
+Topic props: <read 4>
+Whose palette: <read 5 — free, or whose it already is>
+Concept from the topic's objects: <concepts.md — for screen 6>
 ```
 Show it and go straight on (SKILL.md Step 2): the user may correct it in one reply while you work —
 never wait for approval of a text, never require them to supply references. If they volunteer a picture or a link, it overrides reads 2–3.

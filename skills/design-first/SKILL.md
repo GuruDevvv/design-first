@@ -1,7 +1,7 @@
 ---
 name: design-first
 description: >-
-  Design before code: the look is read from the topic's vibe and audience, six different first screens are built around found stock photographs, type and texture, the user picks one, and it grows into a live page for desktop and phone, measured for readability before the user sees it. Interview → read the vibe → fixed words → photos chosen and measured → six screens → gallery → pick → phone → build → numeric check. Use when: "make a design", "design this", "prepare design", "how should this look", "visual direction", "prototypes", "redesign", "сделай дизайн", "подготовь макет", "нарисуй страницу", "редизайн", "варианты дизайна". Scope: landing pages, dashboards, portfolios, forms, apps, components — any visual/UI work. Do NOT use for: code review, debugging, backend logic, data processing, or non-visual tasks.
+  Design before code: the look is read from the topic's vibe and audience, six different first screens are built around found stock photographs, type and texture, the user picks one, and it grows into a live page for desktop and phone, measured for readability before the user sees it. Interview → read the vibe → fixed words → photos chosen and measured → six screens → gallery → pick → phone → build → numeric check. Use when: "make a design", "design this", "prepare design", "how should this look", "visual direction", "prototypes", "redesign", "design options", "mock this up". Scope: landing pages, dashboards, portfolios, forms, apps, components — any visual/UI work. Do NOT use for: code review, debugging, backend logic, data processing, or non-visual tasks.
 ---
 
 # Design First
@@ -191,13 +191,6 @@ them as Before/After tables ("skip polish" opts out). Run `check.mjs` on the pro
 before you start, and check each one exists after.
 
 ---
-
-## If an image-generation tool is connected
-
-Some users have an image generator connected to their session. Then, and only for **interface
-mockups**, you may offer once to draw the six takes as pictures first and build the chosen one in
-HTML. It is an option, never a requirement, and never a way to produce photographs: pictures of
-people, places and products for the page itself come from stock or from the user.
 
 ## Quick reference
 

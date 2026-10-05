@@ -14,7 +14,7 @@ Typography is the #1 wow lever and the #1 slop tell. Two rules govern everything
 - **Choose the font from the mood and the domain**, not for diversity's sake.
 
 ### ⚠️ Match the font to the DOMAIN — don't default to the "comfort serif"
-A recurring failure: reaching for **Cormorant Garamond / Playfair Display on every project** because they read as "elegant". An elegant book-serif on a **fintech / hardware / tech** product is tonally wrong — it looks like a wedding invitation on a spec sheet ("свадебный гарамонд"). Before picking, ask *what does THIS product's world actually look like?*
+A recurring failure: reaching for **Cormorant Garamond / Playfair Display on every project** because they read as "elegant". An elegant book-serif on a **fintech / hardware / tech** product is tonally wrong — it looks like a wedding invitation on a spec sheet ("wedding Garamond"). Before picking, ask *what does THIS product's world actually look like?*
 | Domain | Lean toward | Avoid |
 |--------|-------------|-------|
 | PC hardware / tech / performance / SaaS tools | precise grotesques + mono (Geologica, Onest, Manrope, Inter Tight, JetBrains Mono), or a confident geometric display (Unbounded) | delicate literary serifs (Cormorant, Playfair) |

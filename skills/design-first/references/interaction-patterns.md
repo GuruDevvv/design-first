@@ -20,7 +20,7 @@ A long scroll with no wayfinding is a usability failure. **If content is list-he
 
 ### Scroll-spy TOC (dependency-free)
 ```html
-<nav class="toc"><a href="#terms">Условия</a><a href="#returns">Доходность</a><a href="#risks">Риски</a></nav>
+<nav class="toc"><a href="#terms">Terms</a><a href="#returns">Returns</a><a href="#risks">Risks</a></nav>
 ```
 ```css
 .toc{position:sticky;top:24px;display:flex;flex-direction:column;gap:8px}
@@ -46,7 +46,7 @@ Always `scroll-margin-top` on anchored sections so sticky headers don't cover th
 | **Bento grid** | mixed-size tiles, modern, scannable | ✅ CSS grid with `grid-row/column span` |
 | **Horizontal scroll-snap section** | gallery/steps that scroll sideways | ✅ `overflow-x:auto; scroll-snap-type:x mandatory` |
 | **Sticky-stacking cards** | cards stack/overlap as you scroll | ✅ `position:sticky; top` per card (see motion.md) |
-| **Before/after slider** | comparison (e.g. "до/после сделки") | ✅ range input + clip-path, ~15 lines JS |
+| **Before/after slider** | comparison (e.g. "before/after the deal") | ✅ range input + clip-path, ~15 lines JS |
 | **Scroll-spy TOC** | live navigation (above) | ✅ |
 | **Custom cursor** | dot that reacts to hover | ✅ ~10 lines JS (best for creative/portfolio, not dashboards) |
 | **Hover-reveal / expand-in-place** | detail on demand, no page change | ✅ CSS `:hover` / `<details>` |

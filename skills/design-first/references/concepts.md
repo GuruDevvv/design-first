@@ -23,7 +23,7 @@ Test for every concept, in this order:
    outside ("a 1920s Berlin telegram") fails here — it made pages feel alien.
 2. **Does it work?** Remove the metaphor — does the page lose information or an action? If it only
    decorates (a wheel, a chart used as ornament), drop it. That is what the user called
-   «непрактичное творчество».
+   "impractical art".
 3. **Is it readable in 3 seconds?** The visitor must get what the page is about before they get
    the joke.
 
