@@ -147,6 +147,10 @@ A tool said "no" → recheck by a **different mechanism**, not by rerunning the 
   than its headline (a real case the user caught) passes clean. That is why "seams" is on the eye-pass list.
 - `mix-blend-mode`, `text-shadow`, `backdrop-filter` are ignored in contrast.
 - Text on photos is never scored, only counted.
+- **Blocks lying on top of each other are not detected.** A logo plate over the chips, a photo pushed
+  below the fold — the run is clean. Most common on the phone: open the 390 screenshot every time.
+- For someone else's live page (a URL) the script only takes the picture and says whether the page
+  loaded; it measures nothing there.
 - Only elements with their own text of 2+ characters are read: input values, placeholders and single
   digits are skipped. Only the widest line of each block is sampled.
 - "Invisible after scroll" is excused when a visible element overlaps the hidden one (built for

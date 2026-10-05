@@ -3,24 +3,25 @@
 // Zero dependencies: Node 22+ (global WebSocket) + an installed Chrome/Edge/Chromium.
 //
 //   node photo.mjs sheet <candidates.json>            -> sheet.jpg next to it (number = index)
-//   node photo.mjs analyze <photo> [--crop x0,y0,x1,y1] [--out overlay.png]   -> JSON to stdout
+//   node photo.mjs analyze <photo> [--crop x0,y0,x1,y1] [--out overlay.png] [--json]   -> a 5-line summary (or JSON)
 //
 // analyze: best_zone (calmest area for text, or null), text_on_photo, per-zone busy / text colour /
 // worst_contrast, focus (x, y of the visual weight), palette. --crop measures only the window that
 // will be visible after object-fit: cover, in fractions of the frame.
 
 import { spawn } from 'node:child_process';
-import { mkdtempSync, existsSync, readFileSync, writeFileSync, rmSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, existsSync, readFileSync, writeFileSync, rmSync } from 'node:fs';
 import { tmpdir } from 'node:os';
-import { join, resolve, dirname } from 'node:path';
+import { join, resolve, dirname, basename } from 'node:path';
 
 const argv = process.argv.slice(2);
 const opt = (name, def) => { const i = argv.indexOf(name); if (i < 0) return def; const v = argv[i + 1]; argv.splice(i, 2); return v; };
 const outOpt = opt('--out', null);
 const cropOpt = opt('--crop', null);
+const jsonOpt = argv.includes('--json') ? (argv.splice(argv.indexOf('--json'), 1), true) : false;
 const [cmd, target] = argv;
 if (!['sheet', 'analyze'].includes(cmd) || !target) {
-  console.error('usage: node photo.mjs sheet <candidates.json> | analyze <photo> [--crop x0,y0,x1,y1] [--out overlay.png]'); process.exit(2);
+  console.error('usage: node photo.mjs sheet <candidates.json> | analyze <photo> [--crop x0,y0,x1,y1] [--out overlay.png] [--json]'); process.exit(2);
 }
 
 const chromePath = () => {
@@ -74,12 +75,19 @@ const ANALYZE = String.raw`(async (src, crop) => {
     const l10 = pct(ls, 10), l50 = pct(ls, 50), l90 = pct(ls, 90); const white = con(1, l90), black = con(l10, 0);
     zones[name] = { busy: +(busy / n).toFixed(3), lum: +l50.toFixed(3), text: white >= black ? 'white' : 'black', worst_contrast: +Math.max(white, black).toFixed(2) };
   }
-  const score = (z) => z.busy - 0.02 * Math.min(z.worst_contrast, 7);
-  const best = Object.keys(zones).sort((a, b) => score(zones[a]) - score(zones[b]))[0];
-  const usable = zones[best].busy <= BUSY_MAX && zones[best].worst_contrast >= CONTRAST_MIN;
   let sxw = 0, syw = 0, sum = 0;
   for (let y = 0; y < h; y++) for (let x = 0; x < w; x++) { const v = e[y * w + x] * e[y * w + x]; sxw += x * v; syw += y * v; sum += v; }
   const focus = [+(sxw / sum / w).toFixed(2), +(syw / sum / h).toFixed(2)];
+  // a zone is usable when it is calm, readable, and does not sit on the subject (the focus point)
+  for (const [name, z] of Object.entries(zones)) {
+    const r = ZONES[name];
+    z.holds_subject = focus[0] > r[0] && focus[0] < r[2] && focus[1] > r[1] && focus[1] < r[3];
+    z.usable = z.busy <= BUSY_MAX && z.worst_contrast >= CONTRAST_MIN && !z.holds_subject;
+  }
+  // text straight on the photo (contrast 4.5+) beats a calmer zone that needs a panel
+  const score = (z) => (z.usable ? 0 : 10) + (z.worst_contrast >= 4.5 ? 0 : 1) + z.busy - 0.02 * Math.min(z.worst_contrast, 7);
+  const best = Object.keys(zones).sort((a, b) => score(zones[a]) - score(zones[b]))[0];
+  const usable = zones[best].usable;
   const bins = new Map();
   for (let i = 0; i < w * h; i += 2) { const r = px[i * 4], gg = px[i * 4 + 1], b = px[i * 4 + 2]; const key = (r >> 6) << 4 | (gg >> 6) << 2 | (b >> 6);
     const o = bins.get(key) || [0, 0, 0, 0]; o[0] += r; o[1] += gg; o[2] += b; o[3]++; bins.set(key, o); }
@@ -150,9 +158,16 @@ async function main() {
   const crop = cropOpt ? cropOpt.split(',').map(Number) : null;
   if (crop && (crop.length !== 4 || crop.some((v) => !(v >= 0 && v <= 1)) || crop[2] <= crop[0] || crop[3] <= crop[1])) throw new Error('--crop wants x0,y0,x1,y1 as fractions, e.g. 0.3,0,1,1');
   const res = await withChrome(({ evaluate }) => evaluate(`${ANALYZE}(${JSON.stringify(dataUrl(file))}, ${JSON.stringify(crop)})`));
-  if (outOpt) writeFileSync(resolve(outOpt), Buffer.from(res.overlay.split(',')[1], 'base64'));
+  if (outOpt) { mkdirSync(dirname(resolve(outOpt)), { recursive: true }); writeFileSync(resolve(outOpt), Buffer.from(res.overlay.split(',')[1], 'base64')); }
   delete res.overlay;
-  console.log(JSON.stringify({ file, ...res }, null, 1));
+  if (jsonOpt) { console.log(JSON.stringify({ file, ...res }, null, 1)); return; }
+  const z = res.zones[res.least_busy_zone];
+  console.log(`${basename(file)} ${res.size.join('x')}${crop ? ' crop ' + crop.join(',') : ''}\n` +
+    `  text zone: ${res.best_zone || 'none'} — text on photo: ${res.text_on_photo}` +
+    (res.best_zone ? ` (${z.text} text, contrast ${z.worst_contrast}, busy ${z.busy})` : ` (least busy: ${res.least_busy_zone}, busy ${z.busy}, contrast ${z.worst_contrast}${z.holds_subject ? ', the subject sits there' : ''})`) + '\n' +
+    `  focus: ${Math.round(res.focus[0] * 100)}% ${Math.round(res.focus[1] * 100)}%   (object-position)\n` +
+    `  palette: ${res.palette.join(' ')}\n` +
+    `  all zones: ${Object.entries(res.zones).map(([n, v]) => `${n} ${v.usable ? 'ok' : 'no'}`).join(', ')}   (--json for the numbers)`);
 }
 
 main().catch((e) => { console.error('photo.mjs: ' + (e.message || e)); process.exit(1); });

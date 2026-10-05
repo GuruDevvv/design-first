@@ -32,8 +32,10 @@ Stock is weak on specific places and events (expect postcards and wrong hits) an
 details and materials. When ladder 1 gives postcards, the screen is built on ladder 2 or 3 — a foggy
 lamp-lit quay sells an evening walk better than a saturated landmark.
 
-Call `stock_search` with `queries` and `out_dir` = `<abs>/prototypes/stock/<set>` (one set per
-screen or per ladder; `vertical: true` for phone crops). Then build the sheet:
+Call `stock_search` with `queries` and `out_dir` = `<abs>/prototypes/stock/<set>` (`vertical: true`
+for phone crops). It keeps 8 photos per query by default; `per_query: 12` when a topic is thin.
+**One set for the whole page is simplest** — duplicates are removed only inside one folder, so with
+a set per screen the same photo comes back under different numbers. Then build the sheet:
 
 ```bash
 node <skill-dir>/scripts/photo.mjs sheet <abs>/prototypes/stock/<set>/candidates.json
@@ -74,13 +76,15 @@ Call `stock_download` with `candidates`, `assets_dir` = `<abs>/prototypes/assets
 node <skill-dir>/scripts/photo.mjs analyze prototypes/assets/arcade.jpg --out prototypes/_an/arcade.png
 ```
 
-`analyze` returns: `best_zone` (left / right / top / bottom / center — the calmest area, or
-`null` when no zone is calm enough: busy above 0.20 or contrast below 3), `text_on_photo` (yes /
-with a local gradient or panel / no), per-zone `busy`, `text` (white or black) and `worst_contrast`;
-`focus` (x, y of the visual weight); `palette` (six colours, most frequent first). Open the overlay:
-a red box is a usable zone, a grey one is only the least busy.
+`analyze` prints five lines: the **text zone** (left / right / top / bottom / center, or `none`),
+whether text can sit on the photo (yes / with a local gradient or panel / no), the **focus** point
+for `object-position`, the **palette** (six colours, most frequent first), and which zones are
+usable. A zone is usable when it is calm (busy up to 0.20), readable (contrast 3 or more) and
+**does not hold the subject**; among usable zones the one where text can sit straight on the photo
+wins. `--json` gives the numbers behind it. Open the overlay: a red box is the chosen zone, a grey
+one is only the least busy.
 
-**`best_zone: null` → no text on this photo.** It becomes a framed object, a strip or a backdrop,
+**Text zone `none` → no text on this photo.** It becomes a framed object, a strip or a backdrop,
 and the words sit on a flat field beside it.
 
 When only part of the frame will be visible (`object-fit: cover` in a narrow or tall box), measure
@@ -125,14 +129,20 @@ a calm object (a blank card), never across the seams.
 From `palette`: page background = the photo's lightest or darkest colour (pushed a little further),
 text = its opposite, **one accent** = the most saturated colour in the photo; when the photo is
 monochrome, its complement or the colour of an object from the topic (stamp ink, pencil red, signal
-yellow). Across the six screens the accents must differ — if three come out the same, change two.
+yellow). No two of the six screens share an accent: when two come out the same, change one.
 Write the hexes into BRIEF.md. Fonts by `typography.md`.
 
 ## 8. Phone
 
-Check a 9:16 window around `focus` (`analyze --crop`): if the subject and a calm band above or below
-both fit, crop the same photo (`object-position` by focus). If not, search again with
-`vertical: true` for the same shot brief. Never squeeze the desktop frame; never stretch.
+- **Text lies on the photo (desktop):** check a 9:16 window around `focus` (`analyze --crop`): if
+  the subject and a calm band above or below both fit, crop the same photo (`object-position` by
+  focus). If not, search again with `vertical: true` for the same shot brief.
+- **Text sits on a flat field (desktop):** the photo stays an object. Stack it — photo on top at
+  40–50% of the screen height, cropped around `focus`, words and button below — and don't measure
+  a text zone at all.
+
+Never squeeze the desktop frame; never stretch. A phone layout can pass the script and still be
+broken: overlapping blocks are not detected — open the 390 screenshot every time.
 
 ## 9. Further sections
 

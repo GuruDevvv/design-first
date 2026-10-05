@@ -39,7 +39,7 @@ async function fetchRetry(url, tries = 5) {
 
 const needAbs = (p, name) => { if (typeof p !== 'string' || !isAbsolute(p)) throw new Error(`${name} must be an absolute path`); return p; };
 
-async function search({ queries, out_dir, vertical = false, per_query = 6 }) {
+async function search({ queries, out_dir, vertical = false, per_query = 8 }) {
   if (!Array.isArray(queries) || !queries.length) throw new Error('queries: a non-empty list of search strings');
   needAbs(out_dir, 'out_dir');
   const n = Math.max(1, Math.min(12, per_query | 0));
@@ -70,6 +70,7 @@ async function search({ queries, out_dir, vertical = false, per_query = 6 }) {
   writeFileSync(join(out_dir, 'candidates.json'), JSON.stringify(cands, null, 1));
   return `${cands.length} candidates saved to ${join(out_dir, 'candidates.json')} (${lines.join('; ')})` +
     (missing ? `; ${missing} previews could not be downloaded` : '') +
+    `. At most ${n} photos are kept per query (per_query, up to 12); a photo already in this folder's set is not repeated` +
     `.\nNext: run the skill's scripts/photo.mjs with: sheet "${join(out_dir, 'candidates.json')}" — then LOOK at sheet.jpg before choosing.`;
 }
 
@@ -82,12 +83,14 @@ async function download({ candidates, assets_dir, picks }) {
   const out = [];
   for (const pick of picks.slice(0, 12)) {
     const c = cands[pick.index];
+    const twin = c && credits.find((x) => x.id === c.id && x.file !== String(pick.name || `p${c.id}`).replace(/[^\w-]+/g, '_') + '.jpg');
+    if (twin) { out.push(`index ${pick.index}: this photo is already downloaded as ${twin.file} — not saved twice; two screens must not share a photo`); continue; }
     if (!c) { out.push(`index ${pick.index}: not in candidates.json`); continue; }
     const name = String(pick.name || `p${c.id}`).replace(/[^\w-]+/g, '_') + '.jpg';
     try {
       const buf = Buffer.from(await (await fetchRetry(c.large_url)).arrayBuffer());
       writeFileSync(join(assets_dir, name), buf);
-      credits = credits.filter((x) => x.file !== name).concat({ file: name, author: c.author, page: c.page, source: 'Pixabay', license: 'Pixabay Content License' });
+      credits = credits.filter((x) => x.file !== name).concat({ file: name, id: c.id, author: c.author, page: c.page, source: 'Pixabay', license: 'Pixabay Content License' });
       const kb = Math.round(statSync(join(assets_dir, name)).size / 1024);
       out.push(`${name}: ok, ${kb} KB, by ${c.author}` + (kb < 120 ? ' — heavily compressed: use only for fog, night or texture' : ''));
     } catch (e) { out.push(`${name}: FAILED (${e.message}) — the link may have expired, run the search again`); }
@@ -105,7 +108,7 @@ const TOOLS = [
       queries: { type: 'array', items: { type: 'string' }, description: 'Up to 10 queries, English, two or three concrete nouns each' },
       out_dir: { type: 'string', description: 'Absolute path of a folder for candidates.json and previews/' },
       vertical: { type: 'boolean', description: 'Portrait photos (for phone crops). Default false' },
-      per_query: { type: 'integer', description: 'Photos kept per query, 1–12. Default 6' } } } },
+      per_query: { type: 'integer', description: 'Photos kept per query, 1–12. Default 8' } } } },
   { name: 'stock_download', title: 'Download chosen stock photos',
     annotations: { title: 'Download chosen stock photos', readOnlyHint: false, destructiveHint: false, idempotentHint: true, openWorldHint: true },
     description: 'Download chosen stock photos (1280 px wide) into the page assets folder and record author credits in credits.json.',
@@ -121,7 +124,7 @@ const text = (t, isError = false) => ({ content: [{ type: 'text', text: t }], is
 
 async function handle(m) {
   if (m.method === 'initialize') return { protocolVersion: m.params?.protocolVersion || '2024-11-05', capabilities: { tools: {} },
-    serverInfo: { name: 'design-first-stock', version: '1.0.0' } };
+    serverInfo: { name: 'design-first-stock', version: '1.0.1' } };
   if (m.method === 'ping') return {};
   if (m.method === 'tools/list') return { tools: TOOLS };
   if (m.method === 'tools/call') {
