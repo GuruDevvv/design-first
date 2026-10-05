@@ -4,8 +4,9 @@ A Claude plugin for people who are not designers and still need a page that look
 cared. Instead of one "clean modern" layout, you get **six genuinely different first screens** for
 your topic, pick the one that feels right, and it grows into a live page for desktop and phone.
 
-It works in **Claude Code**. In the Claude apps without a terminal it can still read the topic and
-write the screens, but it cannot search photos or check the result.
+It works in **Claude Code**: photo search, the browser check and the key setting all need it. In the
+other Claude apps the skill still loads and can read the topic and write the screens, but it cannot
+search photos or check the result, and it says so.
 
 ## What it does
 
@@ -82,6 +83,18 @@ stranger's face off as a named person — for a portrait, give it your own photo
   Krehel ([jakubkrehel/make-interfaces-feel-better](https://github.com/jakubkrehel/make-interfaces-feel-better), MIT).
 - `references/frontend-aesthetics.md` is adapted from Anthropic's frontend aesthetics guidance in the
   Claude Cookbook.
+
+## Troubleshooting
+
+- **"No Pixabay key is set"** — follow *Getting the photo key* above, then start a new session.
+- **"Pixabay rejected the key"** — the key was pasted with a space or cut short; copy it again.
+- **"No Chrome/Edge found"** — install Chrome, or set the `CHROME_PATH` environment variable to a
+  Chromium-based browser.
+- **A script fails on start** — check `node --version`; it must be 22 or newer.
+- **Search is slow or says 429** — the stock limits how fast photos can be fetched; the plugin waits
+  and retries by itself, so let it finish.
+- **The photos are not sharp on a big screen** — stock files are 1280 px wide; the plugin keeps sharp
+  photos to part of the screen for that reason. Replace them with your own for the final page.
 
 ## Support
 

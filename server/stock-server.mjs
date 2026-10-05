@@ -70,7 +70,7 @@ async function search({ queries, out_dir, vertical = false, per_query = 6 }) {
   writeFileSync(join(out_dir, 'candidates.json'), JSON.stringify(cands, null, 1));
   return `${cands.length} candidates saved to ${join(out_dir, 'candidates.json')} (${lines.join('; ')})` +
     (missing ? `; ${missing} previews could not be downloaded` : '') +
-    `.\nNext: node <skill-dir>/scripts/photo.mjs sheet "${join(out_dir, 'candidates.json')}" — then LOOK at sheet.jpg before choosing.`;
+    `.\nNext: run the skill's scripts/photo.mjs with: sheet "${join(out_dir, 'candidates.json')}" — then LOOK at sheet.jpg before choosing.`;
 }
 
 async function download({ candidates, assets_dir, picks }) {
@@ -98,14 +98,16 @@ async function download({ candidates, assets_dir, picks }) {
 }
 
 const TOOLS = [
-  { name: 'stock_search',
+  { name: 'stock_search', title: 'Search stock photos',
+    annotations: { title: 'Search stock photos', readOnlyHint: false, destructiveHint: false, idempotentHint: true, openWorldHint: true },
     description: 'Search free stock photos on Pixabay for the design-first skill. Saves candidates.json and small previews into out_dir; nothing is shown yet — build the contact sheet with photo.mjs and look at it. AI-generated and low-quality photos are filtered out.',
     inputSchema: { type: 'object', required: ['queries', 'out_dir'], properties: {
       queries: { type: 'array', items: { type: 'string' }, description: 'Up to 10 queries, English, two or three concrete nouns each' },
       out_dir: { type: 'string', description: 'Absolute path of a folder for candidates.json and previews/' },
       vertical: { type: 'boolean', description: 'Portrait photos (for phone crops). Default false' },
       per_query: { type: 'integer', description: 'Photos kept per query, 1–12. Default 6' } } } },
-  { name: 'stock_download',
+  { name: 'stock_download', title: 'Download chosen stock photos',
+    annotations: { title: 'Download chosen stock photos', readOnlyHint: false, destructiveHint: false, idempotentHint: true, openWorldHint: true },
     description: 'Download chosen stock photos (1280 px wide) into the page assets folder and record author credits in credits.json.',
     inputSchema: { type: 'object', required: ['candidates', 'assets_dir', 'picks'], properties: {
       candidates: { type: 'string', description: 'Absolute path of candidates.json from stock_search' },
