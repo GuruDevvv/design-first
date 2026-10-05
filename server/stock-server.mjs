@@ -11,7 +11,7 @@ const UA = { 'User-Agent': 'design-first-plugin/1.0' };
 const rawKey = (process.env.PIXABAY_API_KEY || '').trim();
 const KEY = rawKey && !rawKey.includes('${') ? rawKey : '';
 
-const NO_KEY = `No Pixabay key is set, so photo search is off.
+const SETUP_STEPS = `No Pixabay key is set, so photo search is off.
 
 Tell the user this, in their language, as a short numbered list:
 1. Open https://pixabay.com/api/docs/ in a browser.
@@ -127,11 +127,11 @@ async function handle(m) {
   if (m.method === 'tools/call') {
     const { name, arguments: a = {} } = m.params || {};
     if (name !== 'stock_search' && name !== 'stock_download') return text(`Unknown tool: ${name}`, true);
-    if (!KEY) return text(NO_KEY, true);
+    if (!KEY) return text(SETUP_STEPS, true);
     try { return text(name === 'stock_search' ? await search(a) : await download(a)); }
     catch (e) {
       const msg = String(e.message || e);
-      return text(/HTTP 400|Invalid or missing API key/i.test(msg) ? `Pixabay rejected the key (${msg}).\n\n${NO_KEY}` : `Failed: ${msg}`, true);
+      return text(/HTTP 400|Invalid or missing API key/i.test(msg) ? `Pixabay rejected the key (${msg}).\n\n${SETUP_STEPS}` : `Failed: ${msg}`, true);
     }
   }
   throw Object.assign(new Error('Method not found'), { code: -32601 });
