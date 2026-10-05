@@ -28,8 +28,8 @@ The plugin does not collect, read or store personal data. It is not directed at 
 
 ## Removing your data
 
-Delete the `prototypes/` folder in your project. Remove the key with `claude plugin configure
-design-first`, or uninstall the plugin.
+Delete the `prototypes/` folder in your project. Clear the key in the plugin's options
+(`/plugin` in Claude Code), or uninstall the plugin.
 
 ## Contact
 

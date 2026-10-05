@@ -44,13 +44,8 @@ screens from type and drawn textures only.
 1. Open <https://pixabay.com/api/docs/>.
 2. Press **Sign up** and register (a Google account works).
 3. Come back to the same page. In the **Parameters** table, the row **key** now shows your key.
-4. Copy it and run in a terminal:
-
-   ```
-   claude plugin configure design-first
-   ```
-
-   or open `/plugin` in Claude Code, choose Design First and fill in **Pixabay API key**.
+4. Copy it. In Claude Code type `/plugin`, choose Design First, open its options and paste the key
+   into **Pixabay API key**.
 5. Start a new session.
 
 ## Install

@@ -17,8 +17,8 @@ Tell the user this, in their language, as a short numbered list:
 1. Open https://pixabay.com/api/docs/ in a browser.
 2. Press "Sign up" (top right) and register — a Google account works. It is free.
 3. Come back to the same page. In the "Parameters" table, the row "key" now shows the key in green instead of "Please login".
-4. Copy the key. In Claude Code run /plugin, open design-first, choose "Configure", and paste it into "Pixabay API key".
-5. Start a new session (or run /reload-plugins) and ask for the design again.
+4. Copy the key. In Claude Code type /plugin, choose Design First, open its options and paste the key into "Pixabay API key".
+5. Start a new session and ask for the design again.
 
 Until then, go on without stock photos: type-led and CSS-drawn screens only, plus any photos the user gives you. Say once that photo screens are waiting for the key.`;
 
