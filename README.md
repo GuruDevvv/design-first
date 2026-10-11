@@ -1,5 +1,10 @@
 # Design First
 
+> **Archived.** This plugin is no longer developed. The current version of Design First lives as a skill in
+> [my-claude-skills](https://github.com/GuruDevvv/my-claude-skills/tree/main/mine/design-first): it draws the six
+> first screens with an image model instead of building them around stock photos. This repository stays
+> here as it was at version 1.0.1.
+
 <img src=".github/cover.jpg" width="100%" alt="Design First. Six first screens. Pick one. Get a live page.">
 
 A Claude plugin for people who are not designers and still need a page that looks like somebody
@@ -53,15 +58,12 @@ screens from type and drawn textures only.
 
 ## Install
 
-The plugin is submitted to the Claude plugin directory and is under review (October 2026). Until it
-is listed, install it from a clone:
+Install it from a clone:
 
 ```bash
 git clone https://github.com/GuruDevvv/design-first.git
 claude --plugin-dir design-first
 ```
-
-Once listed: **Customize → Plugins → Discover → Design First**.
 
 ## What it runs, sends and fetches
 
