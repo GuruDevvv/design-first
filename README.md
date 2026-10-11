@@ -1,5 +1,7 @@
 # Design First
 
+<img src=".github/cover.jpg" width="100%" alt="Design First. Six first screens. Pick one. Get a live page.">
+
 A Claude plugin for people who are not designers and still need a page that looks like somebody
 cared. Instead of one "clean modern" layout, you get **six genuinely different first screens** for
 your topic, pick the one that feels right, and it grows into a live page for desktop and phone.
@@ -51,9 +53,15 @@ screens from type and drawn textures only.
 
 ## Install
 
-From the Claude plugin directory: **Customize → Plugins → Discover → Design First**.
+The plugin is submitted to the Claude plugin directory and is under review (October 2026). Until it
+is listed, install it from a clone:
 
-To try a local copy: `claude --plugin-dir <path to this folder>`.
+```bash
+git clone https://github.com/GuruDevvv/design-first.git
+claude --plugin-dir design-first
+```
+
+Once listed: **Customize → Plugins → Discover → Design First**.
 
 ## What it runs, sends and fetches
 
